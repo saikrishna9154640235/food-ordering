@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -24,6 +25,7 @@ class Product(Basemodel):
     quantity=models.CharField(max_length=100,null=True,blank=True)
     
     
+    
 class ProductMetaInformation(Basemodel):
     product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name="meta_information")
     product_measuring = models.CharField(max_length=100, null=True, blank=True, choices=(("KG","KG") ,("L","L"),("ML","ML"),(None,None)))
@@ -34,6 +36,6 @@ class ProductMetaInformation(Basemodel):
 
 class ProductImage(Basemodel):
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="images")
-    product_image=models.ImageField(upload_to='products11')
+    product_image=models.ImageField(null=True, blank=True)
     
-    
+

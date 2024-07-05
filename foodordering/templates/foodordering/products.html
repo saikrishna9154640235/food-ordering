@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{%block food%}
+<header>
+    <div class="navbar">
+        <h1>zOOmpACt</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">More</a></li>
+            </ul>
+        </nav>
+        <div class="search1">
+            <input class="inputsearch" type="search" placeholder="Search" required>
+            <button class="btn1" type="submit">Submit</button>
+        </div>
+    </div>
+</header>
+<div class="container1">
+
+
+    {% for  pro in product%}
+ 
+
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{pro.product_image.url}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{pro.product.product_name}}</h5>
+              <p class="card-text">{{pro.product.product_description}}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+
+          </div>
+    </div>
+    {%endfor%}
+
+</div>   
+
+
+<div>
+
+
+    {%if request.user.is_authenticated %}
+        <a href='/logout' type="submit">logout</a>
+    {%endif%}    
+
+
+</div>
+
+{%endblock%}
