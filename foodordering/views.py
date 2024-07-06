@@ -33,9 +33,17 @@ def register(request):
         
   
     
-
+from django.db.models import Q
 def products (request):
+       
+
     product=ProductImage.objects.all()
+    if request.GET.get('search'):
+        search=request.GET.get('search')
+        product=ProductImage.objects.filter(
+            Q(product__product_name__icontains=search)|
+            Q(product__product_description__icontains=search)
+            )
     context={"product":product}
     return render(request,'foodordering/products.html',context)
 
