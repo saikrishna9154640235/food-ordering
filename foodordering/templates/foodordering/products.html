@@ -33,7 +33,9 @@
             <div class="card-body">
               <h5 class="card-title">{{pro.product.product_name}}</h5>
               <p class="card-text">{{pro.product.product_description|truncatechars:50}}</p>
-              <a href="#" class="btn btn-primary">add to cart</a>
+              <a href="/see/{{pro.uid}}" class="btn btn-primary">add to cart</a>
+              <a href="/meta/{{pro.metas}}" class="btn btn-primary">details</a>
+
             </div>
 
 

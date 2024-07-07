@@ -1,7 +1,7 @@
 import random
 from faker import Faker
 from django.utils.text import slugify
-from foodordering.models import Product  # Adjust import path as per your Django app structure
+from foodordering.models import Product ,ProductMetaInformation  # Adjust import path as per your Django app structure
 from datetime import datetime
 
 fake = Faker()
@@ -32,3 +32,5 @@ def seed_db(n=10):
 
 if __name__ == '__main__':
     seed_db()
+
+

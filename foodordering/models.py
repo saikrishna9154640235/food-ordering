@@ -26,12 +26,10 @@ class Product(Basemodel):
     products_demo_price=models.IntegerField(default=10)
     quantity=models.CharField(max_length=100,null=True,blank=True)
     
-    
-    
 class ProductMetaInformation(Basemodel):
     product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name="meta_information")
     product_measuring = models.CharField(max_length=100, null=True, blank=True, choices=(("KG","KG") ,("L","L"),("ML","ML"),(None,None)))
-    product_quantity = models. CharField(max_length=100      ,null=True,blank=True)
+    product_quantity = models. CharField(max_length=100,null=True,blank=True)
     is_restrict=models.BooleanField(default=False)
     restrict_quantity=models.IntegerField()
 
@@ -40,4 +38,6 @@ class ProductImage(Basemodel):
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name="images")
     product_image=models.ImageField(null=True, blank=True)
     
-
+    
+    
+    

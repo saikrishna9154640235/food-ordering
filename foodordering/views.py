@@ -77,4 +77,14 @@ def logouts(request):
     logout(request)
     return redirect("/login")
 
+def see_sep(request,uid  ):
+    product=ProductImage.objects.filter(uid =uid)
+    return render(request,'foodordering/seesep.html',{"product":product})
+    
+
+
+def meta(request ,metas):
+    product=ProductMetaInformation.objects.filter(uid=metas)
+    return render(request,'foodordering/meta.html',{'product':product})
+
 
