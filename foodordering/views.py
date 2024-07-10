@@ -1,8 +1,9 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 # Create your views here.
 from django.contrib.auth import authenticate,login,logout
 from .models import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -31,9 +32,9 @@ def register(request):
         return redirect("/login")
     return render(request, 'foodordering/register.html')
         
-  
-    
-from django.db.models import Q
+from django.db.models import Q,Count,Max
+@login_required(login_url='/login') #redirect when user is not logged in
+
 def products (request):
        
 
@@ -44,7 +45,10 @@ def products (request):
             Q(product__product_name__icontains=search)|
             Q(product__product_description__icontains=search)
             )
-    context={"product":product}
+    cart=Cartitems.objects.all();
+    mat=cart.aggregate(mat=Count('product'))
+    context={"mat":mat}    
+    context={"product":product,"mat":mat}
     return render(request,'foodordering/products.html',context)
 
 
@@ -77,14 +81,36 @@ def logouts(request):
     logout(request)
     return redirect("/login")
 
+
+
 def see_sep(request,uid  ):
     product=ProductImage.objects.filter(uid =uid)
-    return render(request,'foodordering/seesep.html',{"product":product})
+    image_count= product.aggregate(image_count=Count('product_image'))  # Counting the number of related images
+
+    return render(request,'foodordering/seesep.html',{"product":product,'image_count':image_count})
+   
+
+def add_cart(request, product_uid):
+    user = request.user
+    product = get_object_or_404(ProductImage, uid=product_uid)
     
+    # Retrieve or create the cart for the current user
+    cart, created = Cart.objects.get_or_create(user=user, is_paid=False)
+    
+    # Ensure you're getting the actual Cart instance from get_or_create result
+    if isinstance(cart, tuple):
+        cart = cart[0]  # Retrieve the Cart instance from the tuple
+    
+    # Create a Cartitems instance
+    cart_item = Cartitems.objects.create(
+        cart=cart,
+        product=product
+    )
+    return redirect('/')
 
 
-def meta(request ,metas):
-    product=ProductMetaInformation.objects.filter(uid=metas)
-    return render(request,'foodordering/meta.html',{'product':product})
 
-
+def cartitems(request):
+    cart=Cartitems.objects.all()
+    context={'cart':cart}
+    return render (request, 'foodordering/cart.html',context)

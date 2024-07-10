@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% block food%}
+{% for  pro in cart %}
+ 
+
+<div class="col1">
+    <div class="card" style="width: 15rem;">
+        <img class="card-img-top" src="{{pro.product.product_image.url}}" alt="Card image cap" style=" height:150px;">
+        <div class="card-body">
+          <h5 class="card-title">{{pro.product.product.product_name}}</h5>
+        
+        </div>
+
+
+      </div><br><br>
+</div>
+{%endfor%}
+<div>items{{mat.mat}}</div>
+
+{%endblock%}
+

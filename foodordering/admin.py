@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Product)
 admin.site.register(ProductMetaInformation)
 admin.site.register(ProductImage)
+admin.site.register(Cartitems)

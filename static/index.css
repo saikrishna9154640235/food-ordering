@@ -2,7 +2,7 @@
 .zoom{
     text-align:center;
     font-size: 50px;
-    color:#df24d6    ;
+    color:#5e525e    ;
     font-family: 'Times New Roman', Times, serif;
 
 }
@@ -13,7 +13,7 @@
     border:6px solid white;
     padding-bottom:10px;
     border-radius:10px;
-    color:white;
+    color:rgb(113, 97, 97);
 
 
 
@@ -29,9 +29,17 @@
     height:100%;
 }
 body{
-    background-image:url("Untitled design.jpg");
+    background-image:url("pexels-ella-olsson-572949-1640773.jpg");
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
 
 
+}
+
+.table{
+    height: 400px;
+}
+.card{
+    height:320px;
 }

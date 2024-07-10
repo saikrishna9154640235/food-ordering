@@ -1,0 +1,9 @@
+{% extends "base.html"%}
+{% block food%}
+
+{%for i in product%}
+    <h2>{{ forloop.counter}}</h2>
+    <h1>{{i.product.product_name}}</h1>
+{%endfor%}
+
+{%endblock%}

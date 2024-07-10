@@ -22,7 +22,7 @@ class Product(Basemodel):
     product_name=models.CharField(max_length=100)
     product_slug=models.SlugField(unique=True)
     product_description=models.TextField()
-    product_price=models.IntegerField(default=0)
+    product_price =models.IntegerField(default=101)
     products_demo_price=models.IntegerField(default=10)
     quantity=models.CharField(max_length=100,null=True,blank=True)
     
@@ -39,5 +39,14 @@ class ProductImage(Basemodel):
     product_image=models.ImageField(null=True, blank=True)
     
     
+class Cart(Basemodel):
+    user=models.ForeignKey(User, null=True,blank=True,on_delete=models.CASCADE,related_name='cart')
+    is_paid=models.BooleanField(default=False)
     
+     
+class Cartitems(Basemodel):
+    cart=models.ForeignKey(Cart,on_delete=models.CASCADE,related_name='cart_items')
+    product=models.ForeignKey(ProductImage,on_delete=models.CASCADE,related_name='cart_items')    
+    
+        
     

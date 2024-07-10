@@ -1,19 +1,39 @@
 {%extends "base.html"%}
 {%block food%}
+
+
 {% for  pro in product%}
- 
+<div class="tableclass">
+  <table class="table">
+    <thead>
+      <tr>
+        <h1>{{image_count.image_count}}</h1>
+        <th scope="col">{{forloop.counter}}</th>
+        <th scope="col">product_name</th>
+        <th scope="col">product_slug</th>
+        <th scope="col">product_description</th>
+        <th scope="col">product_price</th>
+        <th scope="col">products_demo_price</th>
+        <th scope="col">quantity</th>
+        <th>image</th>
 
-<div class="col1">
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{pro.product_image.url}}" alt="Card image cap" style=" height:200px;">
-        <div class="card-body">
-          <h5 class="card-title">{{pro.product.product_name}}</h5>
-          <p class="card-text">{{pro.product.product_description|truncatechars:50}}</p>
-          <a href="/see/{{pro.uid}}" class="btn btn-primary">add to cart</a>
-        </div>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>{{pro.product.product_name}}</td>
+        <td>{{pro.product.product_slug}}</td>
+        <td>{{pro.product.product_description|truncatechars:50}}</td>
+        <td>{{pro.product.product_price}}</td>
+        <td>{{pro.product.products_demo_price}}</td>
+        <td>{{pro.product.quantity}}</td>
+        <td> <img class="card-img-top" src="{{pro.product_image.url}}" alt="Card image cap" style=" height:200px;"></td>
+        
+
+      </tr>
 
 
-      </div><br><br>
 </div>
 {%endfor%}
 {%endblock%}

@@ -9,7 +9,10 @@ urlpatterns=[
     path("",views.products),
     path("logout",views.logouts),
     path('see/<uuid:uid>/', views.see_sep, name='see'),
-    path('meta/<uuid:metas>',views.meta)
+    path('addcart/<uuid:product_uid>/',views.add_cart,name="add_cart"),
+    path("cat",views.cartitems ,name="cartitems"),
+
+
 
 
 
