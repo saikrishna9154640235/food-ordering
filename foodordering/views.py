@@ -1,9 +1,13 @@
 from django.shortcuts import render,redirect,get_object_or_404
 # Create your views here.
+from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from instamojo_wrapper import Instamojo
+from django.conf import settings
+api = Instamojo(api_key=settings.API_KEY, auth_token=settings.AUTH_TOKEN, endpoint='https://test.instamojo.com/api/1.1/')
 
 
 def register(request):
@@ -32,7 +36,7 @@ def register(request):
         return redirect("/login")
     return render(request, 'foodordering/register.html')
         
-from django.db.models import Q,Count,Max
+from django.db.models import Q,Count,Max,Sum
 @login_required(login_url='/login') #redirect when user is not logged in
 
 def products (request):
@@ -89,7 +93,7 @@ def see_sep(request,uid  ):
 
     return render(request,'foodordering/seesep.html',{"product":product,'image_count':image_count})
    
-
+@login_required(login_url='/login')
 def add_cart(request, product_uid):
     user = request.user
     product = get_object_or_404(ProductImage, uid=product_uid)
@@ -110,7 +114,64 @@ def add_cart(request, product_uid):
 
 
 
+
+@login_required(login_url='/login')
 def cartitems(request):
-    cart=Cartitems.objects.all()
-    context={'cart':cart}
+    # Get the cart object for the current user that is not paid
+    cart = Cart.objects.get(is_paid=False, user=request.user)
+    
+    response=api.payment_request_create(
+        amount=cart.get_cart_total(),
+        purpose="Order",
+        buyer_name="sai",
+        email="golisaikrishnareddy95@gamil.com",
+        redirect_url="http://127.0.0.1:8898/success/",
+       
+        
+        
+    )
+    cart.instamojo_id=response['payment_request']['id']
+    cart.save()
+    
+    
+    # Get all cart items associated with the cart
+    total_price = Cartitems.objects.filter(cart=cart).aggregate(total_price=Sum('product__product__product_price'))['total_price'] or 0
+
+
+    context={"cart":cart,"total_price":total_price,'payment_url':response['payment_request']['longurl']}
     return render (request, 'foodordering/cart.html',context)
+
+
+
+#remove unwanted cart items 
+def remove_cart_items(request,cart_item_uid):
+    Cartitems.objects.get(uid=cart_item_uid).delete()
+    return redirect("/cat")
+
+
+def orders(request):
+    order=Cart.objects.filter(is_paid=False,user=request.user)
+    context={"order":order}
+    return render (request, 'foodordering/orders.html',context)
+
+
+def success(request):
+    payment_request_id = request.GET.get('payment_request_id')
+    
+    # Check if payment_request_id is not None
+    if payment_request_id:
+        try:
+            cart = Cart.objects.get(instamojo_id=payment_request_id)
+        except Cart.DoesNotExist:
+            return HttpResponse('Cart not found', status=404)
+        
+        # Assuming cart is found, update its status
+        cart.is_paid = True
+        cart.save()
+        
+        # Redirect to '/myorders'
+        return redirect('/myorders')  # Assuming 'myorders' is the name of the URL pattern for '/myorders'
+    
+    else:
+        # Handle case where payment_request_id is missing
+        return HttpResponse('payment_request_id parameter is missing', status=400)

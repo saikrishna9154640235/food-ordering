@@ -140,3 +140,11 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+API_KEY = "test_1d1892f58039d35b1defc81b11e"
+AUTH_TOKEN = "test_b69b12ddce92055eef455b9a673"
+SALT = "a669d88b6604426e94ceedf969c0349b"
+

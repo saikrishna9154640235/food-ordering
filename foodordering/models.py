@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.db.models import Sum
 
             
 
@@ -42,7 +43,11 @@ class ProductImage(Basemodel):
 class Cart(Basemodel):
     user=models.ForeignKey(User, null=True,blank=True,on_delete=models.CASCADE,related_name='cart')
     is_paid=models.BooleanField(default=False)
+    instamojo_id=models.CharField(max_length=1000)
+    def get_cart_total(self):
+            return Cartitems.objects.filter(cart=self).aggregate(Sum("product__product__product_price"))['product__product__product_price__sum']
     
+     
      
 class Cartitems(Basemodel):
     cart=models.ForeignKey(Cart,on_delete=models.CASCADE,related_name='cart_items')

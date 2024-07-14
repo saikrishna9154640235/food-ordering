@@ -6,16 +6,16 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/login">More</a></li>
+                <li><a href="/login">Login</a></li>
             </ul>
         </nav>
         <form  class="md-4">
-            <div>
+            <div style="display:flex; border-radius:none;" >
 
 
-            <input type="search" class="form-control" name="search" placeholder="search" required>
-            <button type="search" class="btn1">search{{request.user.get_cart_count}}</button>
-
+            <input type="search" class="form-control"  style=" border-radius:0px;border-top-left-radius: 25px;    border-bottom-left-radius: 25px;" name="search" placeholder="search" required>
+            <button type="search" class="btn1">search</button>
+            <a href="/cat" class="btn btn-primary" style="margin-left:5px; border-radius:25px;"><i class="fa-solid fa-cart-shopping">{{request.user.get_cart_count}}</i></a>
             </div>
         </form>
 
@@ -28,7 +28,7 @@
  
 
     <div class="col1">
-        <div class="card" style="width: 16rem;">
+        <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="{{pro.product_image.url}}" alt="Card image cap" style=" height:150px;">
             <div class="card-body">
               <h5 class="card-title">{{pro.product.product_name}}</h5>
@@ -36,7 +36,7 @@
               <h6 class='card-text'>Price:{{pro.product.product_price}}</h6>
               <a href="/see/{{pro.uid}}" class="btn btn-danger">More</a>
               <a href="{% url 'add_cart' product_uid=pro.uid %}" class="btn btn-danger"> Add to Cart🛒</a>
-
+                
                 
 
             </div>

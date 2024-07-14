@@ -1,62 +1,35 @@
 {% extends "base.html" %}
 {%block food%}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown link
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-            </li>
-        </ul>
-        </div>
-    </nav>
-</header>
-<div class="container">
-    <div class="col">
+
+<div class="hzoom">☲zOOmpACt☲</div>
+
+<div class="container" style="width:300px ;margin-top:5%">
+    <div class="col" >
         <form  method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
-                <label for="firstname">First name</label>
+                <label for="firstname" style="color:yellow ; font-size:21px">First name</label>
                 <input type="text" class="form-control" name="first_name" id="firstname" placeholder="first name">
             </div>
     
             <div class="form-group">
-                <label for="lastname">Last name</label>
+                <label for="lastname"style="color:yellow ; font-size:21px">Last name</label>
                 <input type="text" class="form-control" name="last_name" id="lastname" placeholder="firstname">
             </div>
     
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username"style="color:yellow ; font-size:21px">Username</label>
                 <input type="text" class="form-control" name="username" id="username" placeholder="username">
             </div>
 
             <div class="form-group">
-                <label for="email">email</label>
+                <label for="email"style="color:yellow ; font-size:21px">email</label>
                 <input type="eamil" class="form-control" name="email" id="email" placeholder="email">
             </div>
     
     
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password"style="color:yellow ; font-size:21px">Password</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>

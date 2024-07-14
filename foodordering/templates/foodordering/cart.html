@@ -1,21 +1,75 @@
 {% extends 'base.html'%}
-{% block food%}
-{% for  pro in cart %}
- 
-
-<div class="col1">
-    <div class="card" style="width: 15rem;">
-        <img class="card-img-top" src="{{pro.product.product_image.url}}" alt="Card image cap" style=" height:150px;">
-        <div class="card-body">
-          <h5 class="card-title">{{pro.product.product.product_name}}</h5>
+{% block food %}
+<nav class="ordernav" style="width:1536px;height:50px; background-color:black;">
+    <div class="h2">
+        <a href="{% url "products" %}" style="color:yellow;text-decoration:none;"> Home</a>
+    </div>
+    <div class="o1">
         
-        </div>
+       <button class="o2" type='button' style=""><a href="/myorders" style="text-decoration:none;color:red">Dashboard<i class="fa-solid fa-cart-shopping">{{request.user.get_cart_count}}</i></a></button>
+    </div>
+</nav>
+
+<div class="cart_items">
+      <table class="table">
+          <thead class="thead-dark">
+              <tr style="">
+                  <th scope="col">count</th>
+                  <th scope="col">image</th>
+                  <th scope="col">name</th>
+                  <th scope="col">price</th>
+                  <th></th>
+              </tr>
+          </thead>
+          {% for  pro in cart.cart_items.all %}
+          <tbody>
+              <tr class="trm">
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>
+                      <img class="card-top" style="height:100px;width:100px" src='{{pro.product.product_image.url}}'>
+                  </td>
+                  <td>{{pro.product.product.product_name}}</td>
+                  <td>{{pro.product.product.product_price}}</td>
+                  <td>
+                    <a href="{%url 'remove_cart_items' cart_item_uid=pro.uid%}" style="text-decoration:none;color:black;;" ><i class="fa-solid fa-trash"></i></i></a>
+                  </td>
+              </tr>
+          </tbody>
+          {%endfor%}    
+      </table>
 
 
-      </div><br><br>
+  
+
+
+    <table class="table" >
+      <thead class="thead-dark">
+          <tr >
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col">total</th>
+          
+          </tr>
+      </thead>
+      <tbody>
+          <tr  >
+              <td ></td>
+              <td ></td>
+              <td></td>
+
+              <td  >
+                <a href="{{payment_url}}" class="btn btn-primary">Pay Now  {{total_price}}</a>
+              </td>
+
+          </tr>
+      </tbody>
+    </table>
+
 </div>
-{%endfor%}
-<div>items{{mat.mat}}</div>
+
+
+
 
 {%endblock%}
 

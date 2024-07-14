@@ -29,7 +29,7 @@
     height:100%;
 }
 body{
-    background-image:url("pexels-ella-olsson-572949-1640773.jpg");
+    background-color:black;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -37,9 +37,35 @@ body{
 
 }
 
-.table{
-    height: 400px;
-}
+
 .card{
     height:320px;
+}
+.cart_items{
+    margin-left: 100px;
+    margin-right:100px;
+    
+}
+.ordernav{
+    display: flex;
+    align-items: center;
+    
+}
+.o1{
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+ 
+    
+}
+.o2{
+    background-color:blue;
+    height:25px;
+    width:100px;
+    border: 3px  solid blue;
+    text-align: center;
+    border-radius: 3px;
+}
+.h2{
+    font-family: monospace;
 }
